@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Controls the sword attack mechanics, animations and hit detection
+/// </summary>
 public class Sword : MonoBehaviour
 {
-    [SerializeField] private GameObject slashAnimPrefab;
-    [SerializeField] private Transform slashAnimSpawnPoint;
-    [SerializeField] private Transform weaponCollider;
-    [SerializeField] private float swordAttackCD = .5f;
+    [SerializeField] private GameObject slashAnimPrefab; // Prefab for the slash animation effect
+    [SerializeField] private Transform slashAnimSpawnPoint; // Spawn point for the slash animation
+    [SerializeField] private Transform weaponCollider; // Collider used for sword hits
+    [SerializeField] private float swordAttackCD = .5f; // Cooldown between sword attacks
 
     private PlayerControls playerControls;
     private Animator myAnimator;
@@ -31,34 +33,35 @@ public class Sword : MonoBehaviour
     }
 
     void Start()
-    {
+    {// Subscribe to attack input events
         playerControls.Combat.Attack.started += _ => StartAttacking();
         playerControls.Combat.Attack.canceled += _ => StopAttacking();
 
     }
 
     private void Update()
-    {
+    {// Update sword rotation based on mouse position
         MouseFollowWithOffset();
-        Attack();
+        Attack(); // Handle attack input and attack logic
     }
     private void StartAttacking()
     {
-        attackButtonDown = true;
+        attackButtonDown = true;  // Called when the attack button is pressed
     }
 
     private void StopAttacking()
     {
-        attackButtonDown = false;
+        attackButtonDown = false;  // Called when the attack button is released
     }
 
     private void Attack()
-    {
-       if(attackButtonDown && !isAttacking)
+    {// Start an attack if attack button is down and not already attacking
+        if (attackButtonDown && !isAttacking)
         {
             isAttacking = true;
             myAnimator.SetTrigger("Attack");
             weaponCollider.gameObject.SetActive(true);
+            // Spawn the slash animation
             slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
             slashAnim.transform.parent = this.transform.parent;
             StartCoroutine(AttackCDRoutine());
@@ -66,19 +69,19 @@ public class Sword : MonoBehaviour
     }
 
     private IEnumerator AttackCDRoutine()
-    {
+    {// Cooldown after attacking before being able to attack again
         yield return new WaitForSeconds(swordAttackCD);
         isAttacking = false;
     }
 
     public void DoneAttackingAnimEvent()
-    {
+    {// Called via animation event to disable the weapon collider
         weaponCollider.gameObject.SetActive(false);
     }
 
     
     public void SwingUpFlipAnimEvent()
-    {
+    {// Animation event for swinging upwards and flipping the slash animation
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 0);
 
         if (playerController.FacingLeft)
@@ -88,7 +91,7 @@ public class Sword : MonoBehaviour
     }
 
     public void SwingDownFlipAnimEvent()
-    {
+    { // Animation event for swinging downwards and setting normal rotation
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         if (playerController.FacingLeft)
@@ -98,7 +101,7 @@ public class Sword : MonoBehaviour
     }
 
     private void MouseFollowWithOffset()
-    {
+    { // Makes the sword follow the mouse position with correct rotation
         Vector3 mousePos = Input.mousePosition;
         Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(playerController.transform.position);
 
