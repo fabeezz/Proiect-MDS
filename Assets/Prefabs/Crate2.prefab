@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1466987858481532520}
   - component: {fileID: 2635154805600313519}
   m_Layer: 0
-  m_Name: Bush
+  m_Name: Crate2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8fd72333b6fee9141aa4b0c110180e77, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ebd3046f319213b4cb880b4133d0bab7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -133,4 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908bf2db7110dfedea1a72e528784546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyVFX: {fileID: 180884077044180496, guid: 39d9170e985724adfb55e18a6c94568b, type: 3}
+  destroyVFX: {fileID: 180884077044180496, guid: 11dadce0575e39e04b8ab530365e446c, type: 3}
