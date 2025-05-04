@@ -27,7 +27,7 @@ public class Knockback : MonoBehaviour
     {
         // Wait for the knockback time and then reset the object's velocity
         yield return new WaitForSeconds(knockBackTime);
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         GettingKnockedBack = false;
     }
 }
