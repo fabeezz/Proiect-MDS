@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="57206fbb-0cec-4cb4-8236-34c9c7f9d545" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Bush.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Bush.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Death VFX.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Death VFX.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Slime Death VFX.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Slime Death VFX.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tilemap/Cosmetic.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tilemap/Cosmetic.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tilemap/Foreground.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tilemap/Foreground.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tilemap/Water.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tilemap/Water.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Proiect-MDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Proiect-MDS/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tree (1).prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tree (1).prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tree.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tree.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tilemap/New Palette.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tilemap/New Palette.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,16 +28,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Tudor/Destructibles",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Unity/Hub/Editor/2022.3.61f1/Editor/Unity" />
@@ -101,6 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1746374929566</updated>
       <workItem from="1746374941920" duration="38000" />
+      <workItem from="1746378601189" duration="3157000" />
     </task>
     <servers />
   </component>
