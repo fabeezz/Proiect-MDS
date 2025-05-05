@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
 
     // Proprietate pentru a verifica daca playerul este orientat spre stanga
     public bool FacingLeft { get { return facingLeft; } }
     // Singleton pentru acces usor la instanta playerului
-    public static PlayerController Instance;
 
     [SerializeField] private float moveSpeed = 1f;  // Viteza normala de miscare
     [SerializeField] private float dashSpeed = 4f; // Multiplicator de viteza in timpul dash-ului
@@ -25,10 +24,8 @@ public class PlayerController : MonoBehaviour
     private bool facingLeft = false;
     private bool isDashing = false;
 
-    private void Awake()
-    {
-        // Initializeaza componentele si instanta singleton
-        Instance = this;
+    protected override void Awake(){
+        base.Awake();
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
