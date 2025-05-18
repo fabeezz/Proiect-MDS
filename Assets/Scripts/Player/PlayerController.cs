@@ -12,6 +12,9 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private float moveSpeed = 1f;  // Viteza normala de miscare
     [SerializeField] private float dashSpeed = 4f; // Multiplicator de viteza in timpul dash-ului
     [SerializeField] private TrailRenderer myTrailRenderer;  // Efect vizual pentru dash
+    [SerializeField] private Transform weaponCollider;
+
+
 
     private PlayerControls playerControls; // Referinta la schema de input-uri
     private Vector2 movement; // Vector pentru directia de miscare
@@ -57,7 +60,10 @@ public class PlayerController : Singleton<PlayerController>
         AdjustPlayerFacingDirection();
         Move();
     }
-
+    public Transform GetWeaponCollider()
+    {
+        return weaponCollider;
+    }
     private void PlayerInput()
     {
         movement = playerControls.Movement.Move.ReadValue<Vector2>();

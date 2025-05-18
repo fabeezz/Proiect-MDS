@@ -8,9 +8,12 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
 {
     // Reference to the currently equipped weapon
     // Must implement the IWeapon interface
-    [SerializeField] private MonoBehaviour currentActiveWeapon;
+    public MonoBehaviour CurrentActiveWeapon { get; private set; }
+
 
     private PlayerControls playerControls;
+    private float timeBetweenAttacks;
+
 
     // Tracks whether the attack button is being held down
     private bool attackButtonDown, isAttacking = false;
@@ -34,6 +37,8 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
         playerControls.Combat.Attack.started += _ => StartAttacking();
         // 'canceled' triggers when the attack button is released
         playerControls.Combat.Attack.canceled += _ => StopAttacking();
+        AttackCooldown();
+
     }
 
     private void Update()
@@ -41,11 +46,30 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
         Attack();
     }
 
-    public void ToggleIsAttacking(bool value)
+    public void NewWeapon(MonoBehaviour newWeapon)
     {
-        isAttacking = value;
+        CurrentActiveWeapon = newWeapon;
+        AttackCooldown();
+        timeBetweenAttacks = (CurrentActiveWeapon as IWeapon).GetWeaponInfo().weaponCooldown;
     }
 
+    public void WeaponNull()
+    {
+        CurrentActiveWeapon = null;
+    }
+
+    private void AttackCooldown()
+    {
+        isAttacking = true;
+        StopAllCoroutines();
+        StartCoroutine(TimeBetweenAttacksRoutine());
+    }
+    private IEnumerator TimeBetweenAttacksRoutine()
+    {
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        isAttacking = false;
+    }
+    
     private void StartAttacking()
     {
         attackButtonDown = true;
@@ -61,8 +85,8 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
     {
         if (attackButtonDown && !isAttacking)
         {
-            isAttacking = true;
-            (currentActiveWeapon as IWeapon).Attack();
+            AttackCooldown();
+            (CurrentActiveWeapon as IWeapon).Attack();
         }
     }
 }
