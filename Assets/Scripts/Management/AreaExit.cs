@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class AreaExit : MonoBehaviour
 {
     [SerializeField] private string sceneToLoad;
     [SerializeField] private string sceneTransitionName;
 
     private float waitToLoadTime = 1f;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<PlayerController>())
         {
-            Debug.Log($"Setting SceneTransitionName to: {sceneTransitionName}");
             SceneManagement.Instance.SetTransitionName(sceneTransitionName);
             UIFade.Instance.FadeToBlack();
             StartCoroutine(LoadSceneRoutine());
@@ -26,10 +27,7 @@ public class AreaExit : MonoBehaviour
             waitToLoadTime -= Time.deltaTime;
             yield return null;
         }
-        
-        //SceneManagement.Instance.SetTransitionName(sceneTransitionName);
-        
+
         SceneManager.LoadScene(sceneToLoad);
     }
-    
 }
