@@ -13,3 +13,6 @@ public class CameraController : Singleton<CameraController>
         cinemachineVirtualCamera.Follow = PlayerController.Instance.transform;
     }
 }
+
+
+
