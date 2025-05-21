@@ -1,58 +1,112 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private float roamChangeDirFloat = 3f; // Cât de des schimbă direcția
-    [SerializeField] private float roamingRange = 7f; // Cât de departe poate să se miște de punctul de start
+    [SerializeField] private float roamChangeDirFloat = 2f;
+    [SerializeField] private float attackRange = 5f;
+    [SerializeField] private MonoBehaviour enemyType;
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private bool stopMovingWhileAttacking = false;
+
+    private bool canAttack = true;
 
     private enum State
     {
-        Roaming
+        Roaming,
+        Attacking
     }
 
-    private Vector2 moveDirection;
-    private Vector2 startPosition;
+    private Vector2 roamPosition;
+    private float timeRoaming = 0f;
+
     private State state;
     private EnemyPathfinding enemyPathfinding;
 
     private void Awake()
     {
         enemyPathfinding = GetComponent<EnemyPathfinding>();
-        state = State.Roaming;  
+        state = State.Roaming;
     }
 
     private void Start()
     {
-        StartCoroutine(RoamingRoutine());
+        roamPosition = GetRoamingPosition();
     }
 
-    private IEnumerator RoamingRoutine()
+    private void Update()
     {
-        while (true)
+        MovementStateControl();
+    }
+
+    private void MovementStateControl()
+    {
+        switch (state)
         {
-            PickNewDirection();
-            yield return new WaitForSeconds(roamChangeDirFloat);
+            default:
+            case State.Roaming:
+                Roaming();
+                break;
+
+            case State.Attacking:
+                Attacking();
+                break;
         }
     }
 
-    private void PickNewDirection()
+    private void Roaming()
     {
-        // Alege o direcție random
-        moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+        timeRoaming += Time.deltaTime;
 
-        // Verifică dacă pleacă prea departe
-        Vector2 potentialPosition = (Vector2)transform.position + moveDirection;
-        if (Vector2.Distance(startPosition, potentialPosition) > roamingRange)
+        enemyPathfinding.MoveTo(roamPosition);
+
+        if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < attackRange)
         {
-            // Dacă da, inversează direcția
-            moveDirection = (startPosition - (Vector2)transform.position).normalized;
+            state = State.Attacking;
         }
 
-        enemyPathfinding.MoveTo(moveDirection);
+        if (timeRoaming > roamChangeDirFloat)
+        {
+            roamPosition = GetRoamingPosition();
+        }
     }
 
+    private void Attacking()
+    {
+        if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > attackRange)
+        {
+            state = State.Roaming;
+        }
 
+        if (attackRange != 0 && canAttack)
+        {
+
+            canAttack = false;
+            (enemyType as IEnemy).Attack();
+
+            if (stopMovingWhileAttacking)
+            {
+                enemyPathfinding.StopMoving();
+            }
+            else
+            {
+                enemyPathfinding.MoveTo(roamPosition);
+            }
+
+            StartCoroutine(AttackCooldownRoutine());
+        }
+    }
+
+    private IEnumerator AttackCooldownRoutine()
+    {
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
+    private Vector2 GetRoamingPosition()
+    {
+        timeRoaming = 0f;
+        return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+    }
 }
