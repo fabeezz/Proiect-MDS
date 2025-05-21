@@ -27,7 +27,7 @@ public class AreaExit : MonoBehaviour
             yield return null;
         }
         
-        SceneManagement.Instance.SetTransitionName(sceneTransitionName);
+        //SceneManagement.Instance.SetTransitionName(sceneTransitionName);
         
         SceneManager.LoadScene(sceneToLoad);
     }

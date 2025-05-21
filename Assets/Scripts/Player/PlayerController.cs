@@ -21,6 +21,7 @@ public class PlayerController : Singleton<PlayerController>
     private Rigidbody2D rb;
     private Animator myAnimator;
     private SpriteRenderer mySpriteRender;
+    private Knockback knockback;
     private float startingMoveSpeed;  // Stocheaza viteza initiala pentru a reveni dupa dash
 
 
@@ -33,6 +34,7 @@ public class PlayerController : Singleton<PlayerController>
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRender = GetComponent<SpriteRenderer>();
+        knockback = GetComponent<Knockback>();
     }
 
     private void Start()
@@ -73,7 +75,10 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void Move()
-    {// Muta playerul in functie de input si viteza
+    {
+        if (knockback.GettingKnockedBack) { return; }
+
+        // Muta playerul in functie de input si viteza
         rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
     }
 
