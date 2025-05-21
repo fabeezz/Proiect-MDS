@@ -27,13 +27,7 @@ public class AreaExit : MonoBehaviour
             waitToLoadTime -= Time.deltaTime;
             yield return null;
         }
-//<<<<<<< Updated upstream
-        
-//        SceneManagement.Instance.SetTransitionName(sceneTransitionName);
-        
-//=======
 
-//>>>>>>> Stashed changes
         SceneManager.LoadScene(sceneToLoad);
     }
 }

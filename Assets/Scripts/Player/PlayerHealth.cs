@@ -28,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
     {
         EnemyAI enemy = other.gameObject.GetComponent<EnemyAI>();
 
+
         if (enemy)
         {
             TakeDamage(1, other.transform);
@@ -41,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         ScreenShakeManager.Instance.ShakeScreen();
         knockback.GetKnockedBack(hitTransform, knockBackThrustAmount);
         StartCoroutine(flash.FlashRoutine());
+
         canTakeDamage = false;
         currentHealth -= damageAmount;
         StartCoroutine(DamageRecoveryRoutine());
