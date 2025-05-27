@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +13,23 @@ public class Shooter : MonoBehaviour, IEnemy
     [SerializeField] private float startingDistance = 0.1f;
     [SerializeField] private float timeBetweenBursts;
     [SerializeField] private float restTime = 1f;
+    [SerializeField] private bool stagger;
+    [SerializeField] private bool oscillate;
 
     private bool isShooting = false;
+
+    private void OnValidate()
+    {
+        if(oscillate) { stagger = true; }
+        if(!oscillate) { stagger = false; }
+        if(projectilesPerBurst < 1) { projectilesPerBurst = 1; }
+        if(burstCount < 1) { burstCount = 1; }
+        if(timeBetweenBursts < 0.1f) { timeBetweenBursts = 0.1f; }
+        if(restTime < 0.1f) { restTime = 0.1f; }
+        if(startingDistance < 0.1f) { startingDistance = 0.1f; }
+        if(angleSpread == 0) { angleSpread = 1; }
+        if(bulletMoveSpeed <= 0) { bulletMoveSpeed = 0.1f; }
+    }
 
     private void OnEnable()
     {
@@ -40,12 +56,31 @@ public class Shooter : MonoBehaviour, IEnemy
     {
         isShooting = true;
 
-        float startAngle, currentAngle, angleStep;
+        float startAngle, currentAngle, angleStep, endAngle;
+        float timeBetweenProjectiles = 0f;
 
-        TargetConeOfInfluence(out startAngle, out currentAngle, out angleStep);
-
+        TargetConeOfInfluence(out startAngle, out currentAngle, out angleStep, out endAngle);
+        
+        if(stagger) { timeBetweenProjectiles = timeBetweenBursts / projectilesPerBurst;}
+        
         for (int i = 0; i < burstCount; i++)
         {
+            if (!oscillate)
+            {
+                TargetConeOfInfluence(out startAngle, out currentAngle, out angleStep, out endAngle);
+            }
+
+            if (oscillate && i % 2 != 1)
+            {
+                TargetConeOfInfluence(out startAngle, out currentAngle, out angleStep, out endAngle);
+            } else if (oscillate)
+            {
+                currentAngle = endAngle;
+                endAngle = startAngle;
+                startAngle = currentAngle;
+                angleStep *= -1;
+            }
+            
             for (int j = 0; j < projectilesPerBurst; j++)
             {
                 Vector2 pos = FindBulletSpawnPos(currentAngle);
@@ -60,19 +95,21 @@ public class Shooter : MonoBehaviour, IEnemy
                 }
 
                 currentAngle += angleStep;
+
+                if (stagger) { yield return new WaitForSeconds(timeBetweenProjectiles); }
             }
 
             currentAngle = startAngle;
 
-            yield return new WaitForSeconds(timeBetweenBursts);
-            TargetConeOfInfluence(out startAngle, out currentAngle, out angleStep);
+            if (stagger) { yield return new WaitForSeconds(timeBetweenBursts); }
+
         }
 
         yield return new WaitForSeconds(restTime);
         isShooting = false;
     }
 
-    private void TargetConeOfInfluence(out float startAngle, out float currentAngle, out float angleStep)
+    private void TargetConeOfInfluence(out float startAngle, out float currentAngle, out float angleStep, out float endAngle)
     {
         startAngle = 0;
         currentAngle = 0;
@@ -81,13 +118,14 @@ public class Shooter : MonoBehaviour, IEnemy
         if (PlayerController.Instance == null)
         {
             Debug.LogWarning("Shooter: PlayerController.Instance is null. Aborting cone calculation.");
+            endAngle = 0;
             return;
         }
 
         Vector2 targetDirection = PlayerController.Instance.transform.position - transform.position;
         float targetAngle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
         startAngle = targetAngle;
-        float endAngle = targetAngle;
+        endAngle = targetAngle;
         currentAngle = targetAngle;
         float halfAngleSpread = 0f;
         angleStep = 0;
