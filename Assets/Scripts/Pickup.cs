@@ -7,12 +7,28 @@ public class Pickup : MonoBehaviour
     [SerializeField] private float pickUpDistance = 5f;
     [SerializeField] private float accelerationRate = .2f;
     [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private AnimationCurve animCurve;
+    [SerializeField] private float popDuration = 1f;
+    [SerializeField] private float heightY = 1.5f;
     private Vector3 moveDir;
     private Rigidbody2D rb;
+    
+    private enum PickUpType {
+        GoldCoin,
+        Stamina,
+        Health,
+    }
+    
+    [SerializeField] private PickUpType pickUpType;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(AnimCurveSpawnRoutine());
     }
 
     private void Update()
@@ -40,8 +56,47 @@ public class Pickup : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>())
         {
+            DetectPickupType();
             Destroy(gameObject);
         }
     }
+    
+    private IEnumerator AnimCurveSpawnRoutine() {
+        Vector2 startPoint = transform.position;
+        float randomX = transform.position.x + Random.Range(-2f, 2f);
+        float randomY = transform.position.y + Random.Range(-1f, 1f);
+
+        Vector2 endPoint = new Vector2(randomX, randomY);
+
+        float timePassed = 0f;
+
+        while (timePassed < popDuration)
+        {
+            timePassed += Time.deltaTime;
+            float linearT = timePassed / popDuration;
+            float heightT = animCurve.Evaluate(linearT);
+            float height = Mathf.Lerp(0f, heightY, heightT);
+
+            transform.position = Vector2.Lerp(startPoint, endPoint, linearT) + new Vector2(0f, height);
+            yield return null;
+        }
+    }
+    
+    private void DetectPickupType() {
+        switch (pickUpType)
+        {
+            case PickUpType.GoldCoin:
+                Debug.Log("GoldCoin");
+                break;
+            case PickUpType.Health:
+                PlayerHealth.Instance.HealPlayer();
+                Debug.Log("Health");
+                break;
+            case PickUpType.Stamina:
+                Debug.Log("Stamina");
+                break;
+        }
+    }
+
 
 }
