@@ -33,7 +33,8 @@ This project is a 2D top-down RPG developed in Unity as part of the *Metode de D
 - Examples: "As a player, I want to view and organize my items in an inventory screen so that I can plan my gameplay."
 
 ### ✔️ 2. Diagrams – **1 pt**
-- Included **UML Class Diagram**  
+- Included **UML Class Diagram**
+  ![UML Diagram](images-for-readme/UML-MDS.drawio.png)
 
 
 ### ✔️ 3. Source Control (Git) – **2 pts**
