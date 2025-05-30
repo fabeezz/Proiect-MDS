@@ -110,8 +110,7 @@ Dynamic inventory and smooth fade-based scene transitions guide the player forwa
 - `Materials/`: Used for torches and death effects
 
 
-📎 *Access the full documentation here*:  
-[📄 Project Documentation](https://docs.google.com/document/d/1FYkPNgxL9V46p0bNFUEcMQqGQ7LHoYQzP_VeqZISp4U/edit?usp=sharing)
+## 📎 *Access the full documentation here*:   [📄 Project Documentation](https://docs.google.com/document/d/1FYkPNgxL9V46p0bNFUEcMQqGQ7LHoYQzP_VeqZISp4U/edit?usp=sharing)
 
 
 ### Includes:
