@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Fades a SpriteRenderer or Tilemap to a target transparency when the player enters the area,
+/// and restores full opacity when the player exits. Useful for foreground decoration fading.
+/// </summary>
 public class NewBehaviourScript : MonoBehaviour
 {
     [Range(0,1)]
@@ -13,13 +17,18 @@ public class NewBehaviourScript : MonoBehaviour
     
     private SpriteRenderer spriteRenderer;
     private Tilemap tilemap;
-    
+
+    /// <summary>
+    /// Gets references to the SpriteRenderer or Tilemap components on this GameObject.
+    /// </summary>
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         tilemap = GetComponent<Tilemap>();
     }
-
+    /// <summary>
+    /// When the player enters the trigger, fades the object to a lower alpha (transparency).
+    /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<PlayerController>())
@@ -33,7 +42,9 @@ public class NewBehaviourScript : MonoBehaviour
             }
         }
     }
-    
+    /// <summary>
+    /// When the player exits the trigger, restores full opacity.
+    /// </summary>
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<PlayerController>())
@@ -47,7 +58,9 @@ public class NewBehaviourScript : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Coroutine that fades a SpriteRenderer from one alpha to another over time.
+    /// </summary>
     private IEnumerator FadeRoutine(SpriteRenderer spriteRenderer, float fadeTime, float startValue,
         float targetTransparency)
     {
@@ -60,7 +73,9 @@ public class NewBehaviourScript : MonoBehaviour
             yield return null;
         }
     }
-    
+    /// <summary>
+    /// Coroutine that fades a Tilemap from one alpha to another over time.
+    /// </summary>
     private IEnumerator FadeRoutine(Tilemap tilemap, float fadeTime, float startValue,
         float targetTransparency)
     {
