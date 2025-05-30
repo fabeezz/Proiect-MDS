@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuManager : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
@@ -12,5 +12,10 @@ public class MainMenuManager : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Quit Game"); 
+    }
+    
+    public void OpenOptions()
+    {
+        SceneManager.LoadScene("Controls");
     }
 }
