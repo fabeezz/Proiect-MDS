@@ -9,8 +9,7 @@ This project is a 2D top-down RPG developed in Unity as part of the *Metode de D
 - C# with Visual Studio 2022 & Rider
 - Git + GitHub (branches, PRs, issues)
 - ChatGPT (AI-assisted debugging and concept learning)
-- Task Management : Jira
-  ## 👉 [Click here for the full Jira backlog](https://andraandruta60.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog?epics=visible&atlOrigin=eyJpIjoiMmYwMWFmOGU0MGU0NGY5M2FiMTMyN2UzZDc4NTEzYTciLCJwIjoiaiJ9)
+- Task Management : Jira  👉 [Click here for the full Jira backlog](https://andraandruta60.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog?epics=visible&atlOrigin=eyJpIjoiMmYwMWFmOGU0MGU0NGY5M2FiMTMyN2UzZDc4NTEzYTciLCJwIjoiaiJ9)
 
 
 
