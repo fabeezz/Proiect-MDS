@@ -9,6 +9,7 @@ public class SceneManagement : Singleton<SceneManagement>
 
     public void SetTransitionName(string sceneTransitionName)
     {
+        // Playerul e repoziționat doar când numele tranziției coincide
         this.SceneTransitionName = sceneTransitionName;
     }
 }
