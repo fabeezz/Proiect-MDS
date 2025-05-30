@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // This class handles the logic for toggling and highlighting the currently active inventory slot
-public class ActiveInvetory : MonoBehaviour
+public class ActiveInventory : Singleton<ActiveInventory>
 {
     // Stores the index of the currently active inventory slot (0-based)
     private int activeSlotIndexNum = 0;
 
     private PlayerControls playerControls;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerControls = new PlayerControls();
     }
 
@@ -21,12 +22,15 @@ public class ActiveInvetory : MonoBehaviour
         // When a key is pressed, call ToggleActiveSlot with the key's value
         playerControls.Inventory.Keyboard.performed += ctx => ToggleActiveSlot((int)ctx.ReadValue<float>());
 
-        ToggleActiveHighlight(0);
-
     }
     private void OnEnable()
     {
         playerControls.Enable();
+    }
+
+    public void EquipStartingWeapon()
+    {
+        ToggleActiveHighlight(0);
     }
 
     // Receives a numeric input (e.g., 1, 2, 3...) and updates the active slot accordingly
@@ -73,10 +77,10 @@ public class ActiveInvetory : MonoBehaviour
             return;
         }
 
-        GameObject newWeapon = Instantiate(weaponToSpawn, ActiveWeapon.Instance.transform.position, Quaternion.identity);
+        GameObject newWeapon = Instantiate(weaponToSpawn, ActiveWeapon.Instance.transform);
 
-        ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-        newWeapon.transform.parent = ActiveWeapon.Instance.transform;
+        //ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //newWeapon.transform.parent = ActiveWeapon.Instance.transform;
 
         ActiveWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());
     }
