@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles basic enemy behavior: roaming and attacking.
+/// Uses IEnemy interface for modular attack implementations.
+/// </summary>
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private float roamChangeDirFloat = 2f;
@@ -24,22 +28,31 @@ public class EnemyAI : MonoBehaviour
     private State state;
     private EnemyPathfinding enemyPathfinding;
 
+    /// <summary>
+    /// Initializes references and sets initial state.
+    /// </summary>
     private void Awake()
     {
         enemyPathfinding = GetComponent<EnemyPathfinding>();
         state = State.Roaming;
     }
-
+    /// <summary>
+    /// Sets initial roaming position.
+    /// </summary>
     private void Start()
     {
         roamPosition = GetRoamingPosition();
     }
-
+    /// <summary>
+    /// Called every frame to manage current enemy behavior.
+    /// </summary>
     private void Update()
     {
         MovementStateControl();
     }
-
+    /// <summary>
+    /// Switches between Roaming and Attacking states based on proximity to player.
+    /// </summary>
     private void MovementStateControl()
     {
         switch (state)
@@ -54,24 +67,28 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
     }
-
+    /// <summary>
+    /// Handles random wandering behavior. Switches to attack if the player is in range.
+    /// </summary>
     private void Roaming()
     {
         timeRoaming += Time.deltaTime;
 
         enemyPathfinding.MoveTo(roamPosition);
-
+        // Switch to attacking if the player is nearby
         if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < attackRange)
         {
             state = State.Attacking;
         }
-
+        // Pick a new direction after a time interval
         if (timeRoaming > roamChangeDirFloat)
         {
             roamPosition = GetRoamingPosition();
         }
     }
-
+    /// <summary>
+    /// Triggers enemy attack behavior and optionally pauses movement.
+    /// </summary>
     private void Attacking()
     {
         if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > attackRange)
@@ -97,13 +114,17 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(AttackCooldownRoutine());
         }
     }
-
+    /// <summary>
+    /// Prevents enemy from attacking again until the cooldown is complete.
+    /// </summary>
     private IEnumerator AttackCooldownRoutine()
     {
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-
+    /// <summary>
+    /// Generates a random 2D direction vector for roaming.
+    /// </summary>
     private Vector2 GetRoamingPosition()
     {
         timeRoaming = 0f;
