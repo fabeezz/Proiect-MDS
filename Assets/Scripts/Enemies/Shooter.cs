@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Enemy type that shoots projectiles in customizable bursts and spread angles.
+/// Supports oscillation, staggering, and multi-directional cone attacks.
+/// </summary>
 public class Shooter : MonoBehaviour, IEnemy
 {
     [SerializeField] private GameObject bulletPrefab;
@@ -18,6 +22,9 @@ public class Shooter : MonoBehaviour, IEnemy
     [Tooltip("Stagger must be enabled for oscilate to function properly.")]
     private bool isShooting = false;
 
+    /// <summary>
+    /// Ensures sensible values in the Inspector when editing.
+    /// </summary>
     private void OnValidate()
     {
         if(oscillate) { stagger = true; }
@@ -31,6 +38,9 @@ public class Shooter : MonoBehaviour, IEnemy
         if(bulletMoveSpeed <= 0) { bulletMoveSpeed = 0.1f; }
     }
 
+    /// <summary>
+    /// Starts attack routine after player is available in the scene.
+    /// </summary>
     private void OnEnable()
     {
         StartCoroutine(WaitForPlayerAndAttack());
@@ -43,7 +53,9 @@ public class Shooter : MonoBehaviour, IEnemy
         Attack();
     }
 
-
+    /// <summary>
+    /// Triggers the shooting routine if not already firing.
+    /// </summary>
     public void Attack()
     {
         if (!isShooting)
@@ -52,6 +64,9 @@ public class Shooter : MonoBehaviour, IEnemy
         }
     }
 
+    /// <summary>
+    /// Handles the full projectile burst logic, with optional oscillation and staggered firing.
+    /// </summary>
     private IEnumerator ShootRoutine()
     {
         isShooting = true;
@@ -109,6 +124,9 @@ public class Shooter : MonoBehaviour, IEnemy
         isShooting = false;
     }
 
+    /// <summary>
+    /// Calculates the angular cone from which projectiles will be fired.
+    /// </summary>
     private void TargetConeOfInfluence(out float startAngle, out float currentAngle, out float angleStep, out float endAngle)
     {
         startAngle = 0;
@@ -140,7 +158,10 @@ public class Shooter : MonoBehaviour, IEnemy
         }
     }
 
-
+    /// <summary>
+    /// Determines the exact world position where a bullet should be spawned,
+    /// based on current angle and configured offset.
+    /// </summary>
     private Vector2 FindBulletSpawnPos(float currentAngle)
     {
         float x = transform.position.x + startingDistance * Mathf.Cos(currentAngle * Mathf.Deg2Rad);
