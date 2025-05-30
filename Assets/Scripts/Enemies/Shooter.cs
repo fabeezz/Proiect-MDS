@@ -15,7 +15,7 @@ public class Shooter : MonoBehaviour, IEnemy
     [SerializeField] private float restTime = 1f;
     [SerializeField] private bool stagger;
     [SerializeField] private bool oscillate;
-
+    [Tooltip("Stagger must be enabled for oscilate to function properly.")]
     private bool isShooting = false;
 
     private void OnValidate()
