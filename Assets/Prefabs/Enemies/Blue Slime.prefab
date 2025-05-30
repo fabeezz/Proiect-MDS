@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3381520391165730434}
   - component: {fileID: 6774903937451807942}
   - component: {fileID: 7221215897606491962}
+  - component: {fileID: 1310183137618182941}
   m_Layer: 0
   m_Name: Blue Slime
   m_TagString: Untagged
@@ -167,7 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamChangeDirFloat: 3
-  roamingRange: 7
+  attackRange: 0
+  enemyType: {fileID: 0}
+  attackCooldown: 2
+  stopMovingWhileAttacking: 0
 --- !u!114 &4205861997218232779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,3 +248,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteFlashMat: {fileID: 2100000, guid: a4d5400221fa6c5489c20afd5e76f98f, type: 2}
   restoreDefaultMatTime: 0.2
+--- !u!114 &1310183137618182941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068191924062552263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9185694625b56e500b61446cb81ca6c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldCoin: {fileID: 2016618963570642348, guid: 32c1b1a5b10b7475fa0e516be1319fee, type: 3}
+  health: {fileID: 2016618963570642348, guid: 1a676fdea6f1167f287ee7b1d2d72be2, type: 3}
+  stamina: {fileID: 2016618963570642348, guid: 166cc8eef949d78c98b4545c31f66f36, type: 3}
