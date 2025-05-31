@@ -1,6 +1,6 @@
 # Little Mighty One
 
-This project is a 2D top-down RPG developed in Unity as part of the *Metode de Dezvoltare Software* course. It includes two interconnected scenes, multiple enemy types, a dynamic weapon and inventory system, player health mechanics, and smooth scene transitions.
+This project is a 2D top-down RPG developed in Unity as part of the *Metode de Dezvoltare Software* course. It includes four interconnected scenes, multiple enemy types, a dynamic weapon and inventory system, player health mechanics, and smooth scene transitions.
 
 
 
@@ -14,7 +14,8 @@ This project is a 2D top-down RPG developed in Unity as part of the *Metode de D
 
 
 ## 🎮 Game Overview
-- Two playable scenes: Scene1 (Blue Slime, Purple Mob), Scene2 (Ghost)
+- Four playable scenes: Scene1 (Blue Slime, Purple Mob), Scene2 (Ghost), Scene 3 and 4 (Maze + Purple Mob)
+- Main menu + Controls
 - Player movement with idle/run animation
 - Weapon system with Sword (melee), Bow (projectile), Staff (laser)
 - Active inventory & weapon switching
@@ -84,7 +85,7 @@ We used **ChatGPT** as a development assistant to:
 
 
 # ✨ Game Narrative & Core Loop
-Little Mighty One is a 2D top-down action RPG where the player must traverse two connected scenes, defeat different types of enemies, and survive using weapons and collectible resources.
+Little Mighty One is a 2D top-down action RPG where the player must traverse four connected scenes, defeat different types of enemies, and survive using weapons and collectible resources.
 
 ## 🧙 Story:
 You are the Little Mighty One, a lone hero dropped into an enchanted world infested by corrupted creatures. Starting from a peaceful field now overrun by blue slimes and a purple mob, your goal is to cleanse the land and uncover the dark force behind the invasion.
@@ -93,15 +94,17 @@ You are the Little Mighty One, a lone hero dropped into an enchanted world infes
 
 #### Explore Scene1: Fight blue slimes and a purple mob, collect hearts and coins, swap between sword, bow, and staff.
 
+- From Scene1, you can enter a portal to Scene3: the maze. After escaping, you are rewarded with lots of resources.
+
 #### Move through a portal to Scene2 where a ghost enemy patrols.
+
+- From Scene2, you can progress to Scene4, which is another maze full of secrets and things to uncover.
 
 If you die, you respawn in Scene1.
 
 Defeat enemies → collect coins and hearts → survive longer → switch weapons → repeat.
 
 Dynamic inventory and smooth fade-based scene transitions guide the player forward.
-
-
 
 ## 📁 Repository Structure Highlights
 - `Assets/Scripts`: Organized in folders by role (Player, Enemies, Management)
