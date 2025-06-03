@@ -36,7 +36,7 @@ This project is a 2D top-down RPG developed in Unity as part of the *Metode de D
 
 ### ✔️ 2. Diagrams – **1 pt**
 - Included **UML Class Diagram**
-  ![UML Diagram](images-for-readme/UML-MDS.drawio.png)
+  ![UML Diagram](images-for-readme/UML-MDS-final.drawio.png)
 
 
 ### ✔️ 3. Source Control (Git) – **2 pts**
