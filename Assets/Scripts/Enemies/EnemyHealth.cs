@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int startingHealth = 3;
     [SerializeField] private GameObject deathVFXPrefab;
     [SerializeField] private float knockBackThrust = 15f;
+    public static event Action<EnemyHealth> OnEnemyKilled;
+
 
 
     private int currentHealth;
@@ -67,6 +70,9 @@ public class EnemyHealth : MonoBehaviour
         {
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
             GetComponent<PickUpSpawner>().DropItems();
+
+            OnEnemyKilled?.Invoke(this);  // <-- notifică observatorii
+
             Destroy(gameObject);
         }
     }
