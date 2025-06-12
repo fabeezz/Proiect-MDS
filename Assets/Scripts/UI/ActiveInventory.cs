@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 // This class handles the logic for toggling and highlighting the currently active inventory slot
 public class ActiveInventory : Singleton<ActiveInventory>
@@ -9,11 +11,25 @@ public class ActiveInventory : Singleton<ActiveInventory>
     private int activeSlotIndexNum = 0;
 
     private PlayerControls playerControls;
+    private InputAction escapeAction;
 
     protected override void Awake()
     {
         base.Awake();
         playerControls = new PlayerControls();
+        // Setup Escape key action
+        escapeAction = new InputAction(type: InputActionType.Button, binding: "<Keyboard>/escape");
+        escapeAction.performed += ctx => SceneManager.LoadScene("MainMenu");
+        escapeAction.Enable();
+    }
+
+    private void OnDestroy()
+    {
+        if (escapeAction != null)
+        {
+            escapeAction.Disable();
+            escapeAction.Dispose();
+        }
     }
 
     private void Start()
