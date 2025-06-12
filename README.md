@@ -53,7 +53,7 @@ This project is a 2D top-down RPG developed in Unity as part of the *Metode de D
 - Example PRs: *“Add sword attack logic”*, *“Fix bug in scene transition”*
 
 ### ✔️ 4. Automated Testing – **2 pts**
-
+- We tried using Unity’s Test Framework to automate some parts of the game logic, but ran into bugs and technical difficulties (especially with Play Mode and object interactions). While we didn’t manage to fully implement automated testing, the experience gave us useful insights and we aim to improve this aspect in future updates.
 
 ### ✔️ 5. Bug Reporting + Fix via PR – **1 pt**
 - Example: “Black screen after scene transition”  
